@@ -12,7 +12,7 @@ describe('funcion que retorna si una ruta es absoluta', () => {
 });
 describe('funcion que convierte una ruta relativa en una ruta absoluta', () => {
   it('Debería ingresar una ruta relativa y convertirla a absoluta', () => {
-    const inputRelative = '../LIM011-fe-md-links/README.md';
+    const inputRelative = '/hola.html';
     expect(mdlinks.convertToAbsolute(inputRelative)).toEqual('/home/vanesa/Escritorio/LIM011-fe-md-links/README.md');
   });
 });
