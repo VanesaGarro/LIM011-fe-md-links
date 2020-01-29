@@ -19,6 +19,6 @@ describe('funcion que convierte una ruta relativa en una ruta absoluta', () => {
 describe('funcion que lee el contenido de un arhivo', () => {
   it('Deberia ingresar un archivo y leer el contenido', () => {
     const inputFile = 'src';
-    expect(mdlinks.readDir(inputFile)).toEqual('[mdlinks.js]');
+    expect(mdlinks.readDirectory(inputFile)).toEqual(['mdlinks.js']);
   });
 });

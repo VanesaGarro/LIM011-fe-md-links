@@ -1,45 +1,38 @@
 const path = require('path');
 const fs = require('fs');
 
-const isAbsolute = (input) => (path.isAbsolute(input));
-const convertToAbsolute = (input) => (path.resolve(input));
-
-const readFile = (input) => fs.readFileSync(input, 'utf8');
-const readDirectory = (input) => fs.readdirSync(input);
-
+const isAbsolute = (ruta) => (path.isAbsolute(ruta));
+const readFile = (file) => fs.readFileSync(file, 'utf8');
+const readDirectory = (directory) => fs.readdirSync(directory);
+const isMd = (fileMd) => path.extname(fileMd) === '.md';
+const isFile = (file) => fs.statSync(file).isFile();
+const isDirectory = (directory) => fs.statSync(directory).isDirectory();
+const convertToAbsolute = (ruta) => {
+  if (isAbsolute(ruta) === true) {
+    return ruta;
+  }
+  return path.resolve(ruta);
+};
+const searchMdFiles = (ruta) => {
+  let arrayMdFiles = [];
+  if (isFile(ruta) === true) {
+    if (isMd(ruta) === true) {
+      arrayMdFiles.push(ruta);
+    }
+  } else {
+    readDirectory(ruta).forEach((element) => {
+      arrayMdFiles = arrayMdFiles.concat(element);
+    });
+  }
+  return arrayMdFiles;
+};
 console.log(readFile('README.md'));
 console.log(readDirectory('prueba'));
+console.log(isMd('README.md'));
+console.log(convertToAbsolute('readme2.md'));
+console.log(isFile('holi.html'));
+console.log(isDirectory('prueba'));
+console.log(searchMdFiles('prueba'));
 module.exports = {
-  isAbsolute, convertToAbsolute, readFile, readDirectory,
+  isAbsolute, convertToAbsolute, readFile, readDirectory, isFile, isDirectory,
 };
-
-
-/*
-const searchRecursive = (dir, pattern) => {
-  // array donde irán los archivos md
-  let arrayMd = [];
-  // Leer el contenido del directorio
-  fs.readdirSync(dir).forEach((dirInner) => {
-    // obtener la ruta absoluta
-    // eslint-disable-next-line no-param-reassign
-    dirInner = path.resolve(dir, dirInner);
-    // valida si la ruta es un archivo o directorio
-    const stat = fs.statSync(dirInner);
-    // If path is a directory, scan it and combine results
-    if (stat.isDirectory()) {
-      arrayMd = arrayMd.concat(searchRecursive(dirInner, pattern));
-    }
-    // If path is a file and ends with pattern then push it onto results
-    if (stat.isFile() && dirInner.endsWith(pattern)) {
-      arrayMd.push(dirInner);
-    }
-  });
-
-  return arrayMd;
-};
-
-const files = searchRecursive('prueba', '.md'); // replace dir and pattern
-// as you seem fit
-
-console.log(files);
-*/
