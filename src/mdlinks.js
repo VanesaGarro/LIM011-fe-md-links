@@ -21,18 +21,20 @@ const searchMdFiles = (ruta) => {
     }
   } else {
     readDirectory(ruta).forEach((element) => {
-      arrayMdFiles = arrayMdFiles.concat(element);
+      const rutaAbsoluta = path.join(ruta, element);
+      const rutaMds = (searchMdFiles(rutaAbsoluta));
+      arrayMdFiles = arrayMdFiles.concat(rutaMds);
     });
   }
   return arrayMdFiles;
 };
-console.log(readFile('README.md'));
-console.log(readDirectory('prueba'));
-console.log(isMd('README.md'));
-console.log(convertToAbsolute('readme2.md'));
-console.log(isFile('holi.html'));
-console.log(isDirectory('prueba'));
-console.log(searchMdFiles('prueba'));
+// console.log(readFile('README.md'));
+// console.log(readDirectory('prueba'));
+// console.log(isMd('README.md'));
+// console.log(convertToAbsolute('readme2.md'));
+// console.log(isFile('holi.html'));
+// console.log(isDirectory('prueba'));
+console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
   isAbsolute, convertToAbsolute, readFile, readDirectory, isFile, isDirectory,
 };
