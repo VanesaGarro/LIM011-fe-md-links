@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const marked = require('marked');
 
 const isAbsolute = (ruta) => (path.isAbsolute(ruta));
 const readDirectory = (directory) => fs.readdirSync(directory);
@@ -14,24 +13,12 @@ const convertToAbsolute = (ruta) => {
   return path.resolve(ruta);
 };
 const readFile = (file) => fs.readFileSync(file, 'utf8');
-const markdownLinkExtractor = (markdown) => {
-  const links = [];
-  const renderer = new marked.Renderer();
-
-  renderer.link = function (href, title, text) {
-    links.push(href, text);
-  };
-  marked(markdown, { renderer });
-
-  return links;
-};
 const searchMdFiles = (ruta) => {
   let arrayMdFiles = [];
   if (isFile(ruta) === true) {
     if (isMd(ruta) === true) {
       const read = readFile(ruta);
-      const linkmd = markdownLinkExtractor(read);
-      arrayMdFiles.push(linkmd);
+      arrayMdFiles.push(read);
     }
   } else {
     readDirectory(ruta).forEach((element) => {
@@ -49,7 +36,7 @@ const searchMdFiles = (ruta) => {
 // console.log(convertToAbsolute('readme2.md'));
 // console.log(isFile('holi.html'));
 // console.log(isDirectory('prueba'));
-console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/README.md'));
+console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
   isAbsolute, convertToAbsolute, readFile, readDirectory, isFile, isDirectory,
 };

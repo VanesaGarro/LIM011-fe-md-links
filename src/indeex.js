@@ -4,9 +4,8 @@ const marked = require('marked');
 const markdownLinkExtractor = (markdown) => {
   const links = [];
   const renderer = new marked.Renderer();
-
-  renderer.link = function (href, title, text) {
-    links.push(href, text);
+  renderer.link = (href, title, text) => {
+    links.push({ href, text });
   };
   marked(markdown, { renderer });
 
