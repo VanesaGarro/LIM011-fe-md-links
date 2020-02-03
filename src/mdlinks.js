@@ -17,8 +17,7 @@ const searchMdFiles = (ruta) => {
   let arrayMdFiles = [];
   if (isFile(ruta) === true) {
     if (isMd(ruta) === true) {
-      const read = readFile(ruta);
-      arrayMdFiles.push(read);
+      arrayMdFiles.push(ruta);
     }
   } else {
     readDirectory(ruta).forEach((element) => {
