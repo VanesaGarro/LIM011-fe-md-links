@@ -2,16 +2,21 @@
 const marked = require('marked');
 const fs = require('fs');
 
-const extraerLinks = ([arrayMd]) => {
-  const readfile = fs.readFileSync(arrayMd, 'utf8');
-  const arrayLinks = [];
-  const renderer = new marked.Renderer();
-  renderer.link = (href, title, text) => {
-    arrayLinks.push({ href: href, text: text, file: arrayMd });
-  };
-  marked(readfile, { renderer });
-
-  return arrayLinks;
+const extraerLinks = (arrayMd) => {
+  arrayMd.forEach((element) => {
+    const readfile = fs.readFileSync(element, 'utf8');
+    arrayMd.push(readfile);
+    const renderer = new marked.Renderer();
+    renderer.link = (href, title, text) => {
+      arrayMd.push({ href: href, text: text, path: element });
+    };
+    marked(readfile, { renderer });
+  });
+  return arrayMd;
 };
+
+
 module.exports = { extraerLinks };
-console.log(extraerLinks(['/home/vanesa/Escritorio/LIM011-fe-md-links/README.md']));
+console.log(extraerLinks(['/home/vanesa/Escritorio/LIM011-fe-md-links/prueba/carpeta2/read.md',
+  '/home/vanesa/Escritorio/LIM011-fe-md-links/prueba/probando.md']));
+// console.log(probar(['a', 'b', 'c']));
