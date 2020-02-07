@@ -37,19 +37,31 @@ const extraerLinks = (ruta) => {
   return links;
 };
 const validateLinks = (ruta) => {
-  const arr = [];
-  extraerLinks(ruta).forEach((el) => {
-    const obj = el;
-    arr.push(fetch(el.href)
+  const arrayValidate = [];
+  const arraylinks = extraerLinks(ruta);
+  arraylinks.forEach((el) => {
+    const obj = { ...el };
+    arrayValidate.push(fetch(el.href)
       .then((res) => {
+        if ((res.status >= 200) && (res.status <= 399)) {
+          obj.status = res.status;
+          obj.statusText = 'OK';
+          return obj;
+        }
         obj.status = res.status;
-        obj.statusText = res.statusText;
+        obj.statusText = 'FAIL';
+        return obj;
+      })
+      .catch(() => {
+        obj.status = 'No tiene Status';
+        obj.statusText = 'FAIL';
         return obj;
       }));
   });
-  return arr;
+  return arrayValidate;
 };
-Promise.all(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res)).catch((error) => console.log(`Error in promises ${error}`));
+// eslint-disable-next-line max-len
+Promise.all(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
 // console.log(readFile('/home/vanesa/Escritorio/LIM011-fe-md-links/README.md'));
 // console.log(readDirectory('prueba'));
 // console.log(isMd('README.md'));
@@ -57,7 +69,7 @@ Promise.all(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).
 // console.log(isFile('holi.html'));
 // console.log(isDirectory('prueba'));
 // console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
-// console.log(extraerLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
+// console.log(extraerLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md'));
 // console.log(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
   isAbsolute, readFile, isFile, isDirectory, extraerLinks, validateLinks,
