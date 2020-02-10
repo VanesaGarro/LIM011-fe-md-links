@@ -2,20 +2,18 @@
 const path = require('path');
 const fs = require('fs');
 const marked = require('marked');
-const fetch = require('node-fetch');
 
 const isAbsolute = (ruta) => (path.isAbsolute(ruta));
+const convertToAbsolute = (ruta) => path.resolve(ruta);
 const getPaths = (ruta) => fs.readdirSync(ruta).map((file) => path.resolve(ruta, file));
 const isMd = (fileMd) => path.extname(fileMd) === '.md';
 const isFile = (file) => fs.statSync(file).isFile();
-const isDirectory = (directory) => fs.statSync(directory).isDirectory();
 const readFile = (file) => fs.readFileSync(file, 'utf8');
 const searchMdFiles = (ruta) => {
   let arrayMd = [];
   if (isFile(ruta)) {
     if (isMd(ruta)) {
-      const routeAbsolute = path.resolve(ruta);
-      arrayMd = arrayMd.concat(routeAbsolute);
+      arrayMd = arrayMd.concat(ruta);
       return arrayMd;
     }
     return [];
@@ -25,7 +23,7 @@ const searchMdFiles = (ruta) => {
   });
   return arrayMd;
 };
-const extraerLinks = (ruta) => {
+const getLinks = (ruta) => {
   const renderer = new marked.Renderer();
   const links = [];
   searchMdFiles(ruta).forEach((file) => {
@@ -36,41 +34,17 @@ const extraerLinks = (ruta) => {
   });
   return links;
 };
-const validateLinks = (ruta) => {
-  const arrayValidate = [];
-  const arraylinks = extraerLinks(ruta);
-  arraylinks.forEach((el) => {
-    const obj = { ...el };
-    arrayValidate.push(fetch(el.href)
-      .then((res) => {
-        if ((res.status >= 200) && (res.status <= 399)) {
-          obj.status = res.status;
-          obj.statusText = 'OK';
-          return obj;
-        }
-        obj.status = res.status;
-        obj.statusText = 'FAIL';
-        return obj;
-      })
-      .catch(() => {
-        obj.status = 'No tiene Status';
-        obj.statusText = 'FAIL';
-        return obj;
-      }));
-  });
-  return arrayValidate;
-};
+
 // eslint-disable-next-line max-len
-Promise.all(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
+
 // console.log(readFile('/home/vanesa/Escritorio/LIM011-fe-md-links/README.md'));
 // console.log(readDirectory('prueba'));
 // console.log(isMd('README.md'));
 // console.log(convertToAbsolute('readme2.md'));
 // console.log(isFile('holi.html'));
-// console.log(isDirectory('prueba'));
 // console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
-// console.log(extraerLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md'));
+console.log(getLinks('C:/Users/Vanesa/Desktop/LIM011-fe-md-links/prueba'));
 // console.log(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
-  isAbsolute, readFile, isFile, isDirectory, extraerLinks, validateLinks,
+  isAbsolute, readFile, isFile, getLinks, convertToAbsolute,
 };
