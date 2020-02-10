@@ -27,6 +27,6 @@ const validateLinks = (ruta) => {
   });
   return Promise.all(arrayValidate);
 };
-// Promise.all(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
-(validateLinks('C:/Users/Vanesa/Desktop/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
+// (validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
+// (validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba')).then((res) => console.log(res));
 module.exports = { validateLinks };

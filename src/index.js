@@ -43,7 +43,7 @@ const getLinks = (ruta) => {
 // console.log(convertToAbsolute('readme2.md'));
 // console.log(isFile('holi.html'));
 // console.log(searchMdFiles('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
-console.log(getLinks('C:/Users/Vanesa/Desktop/LIM011-fe-md-links/prueba'));
+// console.log(getLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 // console.log(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
   isAbsolute, readFile, isFile, getLinks, convertToAbsolute,
