@@ -12,6 +12,7 @@ const mdLinks = (path, options) => new Promise((resolve) => {
   }
 });
 
-console.log(mdLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba', { validate: undefined }));
+// eslint-disable-next-line max-len
+// console.log(mdLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba', { validate: undefined }));
 
 module.exports = { mdLinks };
