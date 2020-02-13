@@ -1,18 +1,19 @@
-const validateLinks = require('./validate');
-const index = require('./index');
+const validateLinks = require('./validate.js');
+const index = require('./index.js');
 
 const mdLinks = (path, options) => new Promise((resolve) => {
   const absRoute = index.convertToAbsolute(path);
+  console.log(absRoute);
   if (options.validate === true) {
     resolve(validateLinks.validateLinks(absRoute));
-    console.log('pusiste true');
-  } if (options.validate === undefined) {
-    resolve(index.getLinks(absRoute));
-    console.log('nadaa');
+    // console.log('pusiste true');
+  } else if (options.validate === false) {
+    resolve(index.getLinks(path));
+    // console.log('nadaa');
   }
 });
 
 // eslint-disable-next-line max-len
-// console.log(mdLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba', { validate: undefined }));
+// (mdLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba',{validate:true}).then((res) => console.log(res)));
 
 module.exports = { mdLinks };

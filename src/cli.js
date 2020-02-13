@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 const mdlinks = require('../src/mdlinks');
 
-const [,, ...args] = process.argv;
-console.log(`hello word ${args}`);
-console.log(process.argv);
-// process.argv[2] = true;
 
-const cliFunction = (path, options) => {
-  if (path !== undefined && options.validate === undefined) {
-    mdlinks.mdLinks(path, options).then((res) => console.log(res));
-  } else {
-    console.log('a');
+const cli = (path, options) => {
+  if (options === '--validate') {
+    mdlinks.mdLinks(path, { validate: true }).then((data) => {
+      let string = '';
+      data.forEach((element) => {
+        string += `${element.file} ${element.href} ${element.statusText} ${element.status} ${element.text} \n`;
+      });
+      return console.log(string);
+    });
   }
 };
-// eslint-disable-next-line max-len
-console.log(cliFunction('/home/vanesa/Escritorio/LIM011-fe-md-links/README.md', { validate: true }));
+console.log(cli('/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md', '--validate'));

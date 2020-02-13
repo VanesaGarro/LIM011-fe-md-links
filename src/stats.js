@@ -72,3 +72,5 @@ const uniqueStats = (array) => {
 };
 
 console.log(uniqueStats(arrayp));
+
+module.exports = { totalStats, brokenStats };
