@@ -46,5 +46,5 @@ const getLinks = (ruta) => {
 // console.log(getLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 // console.log(validateLinks('/home/vanesa/Escritorio/LIM011-fe-md-links/prueba'));
 module.exports = {
-  isAbsolute, readFile, isFile, getLinks, convertToAbsolute,
+  isAbsolute, readFile, isFile, getLinks, convertToAbsolute, searchMdFiles,
 };

@@ -14,18 +14,17 @@ describe('Función que retorna un array de objetos con las propiedades href, tex
   it('Debería ingresar una ruta y retornar un array de objetos con las propiedades href,text,file', () => {
     const inputRelative = '/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md';
     const output = [{
-      href:
-      'https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions',
-      text: 'expresiones regulares (<code>RegExp</code>)',
+      href: 'https://www.youtube.com/watch?v=WgSc1nv_4Gw',
+      text: '¿Qué es Nodejs? Javascript en el Servidor - Fazt en YouTube',
       file: '/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md',
     }];
-    expect(mdlinks.extraerLinks(inputRelative)).toEqual(output);
+    expect(mdlinks.getLinks(inputRelative)).toEqual(output);
   });
 });
-describe('funcion que valida los links', () => {
-  it('Deberia ingresar una ruta y retornar un array con las propiedades href,text,file,status,statusText', () => {
-    const input = '/home/vanesa/Escritorio/LIM011-fe-md-links/readme2.md';
-    const output = 'l';
-    expect(mdlinks.validateLinks(input)).toEqual(output);
+describe('funcion que busca archivos md', () => {
+  it('Deberia ingresar una ruta y retornar un array con los archivos md', () => {
+    const input = '/home/vanesa/Escritorio/LIM011-fe-md-links/prueba';
+    const output = ['/home/vanesa/Escritorio/LIM011-fe-md-links/prueba/carpeta2/read.md', '/home/vanesa/Escritorio/LIM011-fe-md-links/prueba/probando.md'];
+    expect(mdlinks.searchMdFiles(input)).toEqual(output);
   });
 });
