@@ -5,9 +5,8 @@ const mdLinks = (path, options) => new Promise((resolve) => {
   const absRoute = index.convertToAbsolute(path);
   if (options.validate === true) {
     resolve(validateLinks.validateLinks(absRoute));
-  } else if (options.validate === false) {
-    resolve(index.getLinks(absRoute));
   }
+  resolve(index.getLinks(absRoute));
 });
 
 // eslint-disable-next-line max-len
