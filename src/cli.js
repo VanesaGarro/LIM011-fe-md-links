@@ -6,4 +6,4 @@ const options = {
   validate: process.argv[3],
   stats: process.argv[4],
 };
-mdLinks.cli(path, options).then((res) => console.log(res));
+mdLinks.cli(path, options).then((res) => console.log(res)).catch(() => console.log('ingrese path'));
