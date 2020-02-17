@@ -2,6 +2,13 @@ const stats = require('./stats');
 const mdlinks = require('./mdlinks');
 
 const cli = (path, options) => {
+  if (options.validate === '--validate' && options.stats === '--stats') {
+    return mdlinks.mdLinks(path, { validate: true }).then((data) => {
+      let sValidate = '';
+      sValidate += `Total: ${stats.totalStats(data)}\n Uniques: ${stats.uniqueStats(data)}\n Broken: ${stats.brokenStats(data)}`;
+      return sValidate;
+    });
+  }
   if (options.validate === '--validate') {
     return mdlinks.mdLinks(path, { validate: true }).then((data) => {
       let validate = '';
@@ -17,13 +24,7 @@ const cli = (path, options) => {
       return stat;
     });
   }
-  if (options.stats === '--stats' && options.validate === '--validate') {
-    return mdlinks.mdLinks(path, { validate: true }).then((data) => {
-      let sValidate = '';
-      sValidate += `Total: ${stats.totalStats(data)}\n Uniques: ${stats.uniqueStats(data)}\n Broken: ${stats.brokenStats(data)}`;
-      return sValidate;
-    });
-  }
+
   return mdlinks.mdLinks(path, { validate: false }).then((data) => {
     let links = '';
     data.forEach((element) => {
