@@ -116,30 +116,30 @@ it('Debería ingresar un string con la ruta mas el objeto validate con la propie
   });
 });
 describe('funcion que devuelve en un string la ruta del archivo y sus propiedades', () => {
-  it('debería retornar la informacion del link, el texto y la ruta ', (done) => {
-    const ouputcli = `${path.resolve(__dirname, '../prueba/probando.md')} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s Pill de recursión - video \n`;
-    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md')).then((res) => {
+  it('debería retornar la informacion del link, ruta, href, text,status,statustext', (done) => {
+    const ouputcli = `${path.resolve(__dirname, '../prueba/probando.md')} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s OK 200 Pill de recursión - video \n`;
+    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), { validate: '--validate' }).then((res) => {
       expect(res).toEqual(ouputcli);
       done();
     });
   });
-  it('debería retornar la informacion del link, la ruta, href, text, status, statusText', (done) => {
-    const ouputcli = `${path.resolve(__dirname, '../prueba/probando.md')} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s OK 200 Pill de recursión - video \n`;
-    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), '--validate').then((res) => {
+  it('debería retornar la informacion del link, la ruta, href, text', (done) => {
+    const ouputcli = `${path.resolve(__dirname, '../prueba/probando.md')} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s Pill de recursión - video \n`;
+    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), { validate: undefined }).then((res) => {
       expect(res).toEqual(ouputcli);
       done();
     });
   });
   it('debería retornar el total de links y la cantidad de links únicos', (done) => {
     const ouputcli = 'Total: 1' + '\n Uniques: 1 \n';
-    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), '--stats').then((res) => {
+    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), { validate: '--stats' }).then((res) => {
       expect(res).toEqual(ouputcli);
       done();
     });
   });
   it('debería retornar el total de links , la cantidad de links únicos y la cantidad de links rotos', (done) => {
     const ouputcli = 'Total: 1' + '\n Uniques: 1' + '\n Broken: 0';
-    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), '--stats --validate').then((res) => {
+    return mdlinkscli.cli(path.resolve(__dirname, '../prueba/probando.md'), { validate: '--validate', stats: '--stats' }).then((res) => {
       expect(res).toEqual(ouputcli);
       done();
     });
