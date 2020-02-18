@@ -2,7 +2,7 @@ const stats = require('./stats');
 const mdlinks = require('./mdlinks');
 
 const cli = (path, options) => {
-  if (options.stats === '--stats' && options.validate === '--validate') {
+  if (options.validate === '--validate' && options.stats === '--stats') {
     return mdlinks.mdLinks(path, { validate: true }).then((data) => {
       let sValidate = '';
       sValidate += `Total: ${stats.totalStats(data)}\n Uniques: ${stats.uniqueStats(data)}\n Broken: ${stats.brokenStats(data)}`;
