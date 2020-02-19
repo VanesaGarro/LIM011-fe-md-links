@@ -5,7 +5,7 @@ const cli = (path, options) => {
   if (options.validate === '--validate' && options.stats === '--stats') {
     return mdlinks.mdLinks(path, { validate: true }).then((data) => {
       let sValidate = '';
-      sValidate += `Total: ${stats.totalStats(data)}\n Uniques: ${stats.uniqueStats(data)}\n Broken: ${stats.brokenStats(data)}`;
+      sValidate += `Total: ${stats.totalStats(data)}\nUniques: ${stats.uniqueStats(data)}\nBroken: ${stats.brokenStats(data)}`;
       return sValidate;
     });
   }
@@ -20,7 +20,7 @@ const cli = (path, options) => {
   } if (options.validate === '--stats') {
     return mdlinks.mdLinks(path, { validate: true }).then((data) => {
       let stat = '';
-      stat += `Total: ${stats.totalStats(data)}\n Uniques: ${stats.uniqueStats(data)} \n`;
+      stat += `Total: ${stats.totalStats(data)}\nUniques: ${stats.uniqueStats(data)}`;
       return stat;
     });
   }
