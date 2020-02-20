@@ -12,7 +12,7 @@ const outputValidate = [{
   href: 'https://www.youtube.com/watchtt',
   text: 'link de prueba - prueba',
   file: path.resolve(__dirname, '../readme2.md'),
-  status: 404,
+  status: 400,
   statusText: 'FAIL',
 },
 {
