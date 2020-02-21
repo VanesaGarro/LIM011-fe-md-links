@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const mdLinks = require('./mdlinks-cli');
 
+// console.log(process.argv);
 const path = process.argv[2];
 const options = {
   stats: process.argv[3],

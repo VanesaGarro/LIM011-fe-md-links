@@ -8,7 +8,7 @@
     "test": "jest --coverage",
     "pretest": "npm run eslint",
     "start": "serve src/",
-    "hola":"echo test"
+    "hola":"ho"
   },
   "repository": {
     "type": "git",
